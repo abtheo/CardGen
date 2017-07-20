@@ -16,15 +16,32 @@ class Deck:
             temp.append(c.value + "-" + c.suit)
         return ', '.join(temp)
 
-    #Returns list of all cards with properties
-    def getter(self, properties):
+    #Returns list of ALL cards with ANY properties
+    def getAll(self, properties):
         out = []
+        #Allows string to be passed
+        if isinstance(properties, str):
+            properties = [properties]
+            
         for c in self.cards:
             for p in properties:
                 if c.value == p or c.suit == p:
                     out.append(c)
                     break       
         return out
+
+    #Takes dictionary of properties
+    #Returns list of cards with JUST properties
+    def getSelect(self, values, suits):
+        out = []
+        for c in self.cards:
+            for v in values:
+                for s in suits:
+                    if c.value == v and c.suit == s:
+                        out.append(c)
+                    
+        return out
+        
        
 class Card:
     def __init__(self, value, suit):
